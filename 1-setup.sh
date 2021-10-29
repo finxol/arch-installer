@@ -42,19 +42,24 @@ if [[  $TOTALMEM -gt 8000000 ]]; then
 sed -i "s/#MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j$nc\"/g" /etc/makepkg.conf
 sed -i "s/COMPRESSXZ=(xz -c -z -)/COMPRESSXZ=(xz -c -T $nc -z -)/g" /etc/makepkg.conf
 fi
+
 echo -ne "
 -------------------------------------------------------------------------
                     Setup Language to US and set locale  
 -------------------------------------------------------------------------
 "
-sed -i 's/^#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+sed -i 's/^#en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
 locale-gen
 timedatectl --no-ask-password set-timezone ${TIMEZONE}
 timedatectl --no-ask-password set-ntp 1
-localectl --no-ask-password set-locale LANG="en_US.UTF-8" LC_TIME="en_US.UTF-8"
+localectl --no-ask-password set-locale LANG="en_GB.UTF-8" LC_TIME="en_GB.UTF-8"
 
 # Set keymaps
+<<<<<<< HEAD
 localectl --no-ask-password set-keymap ${KEYMAP}
+=======
+localectl --no-ask-password set-keymap fr
+>>>>>>> 284f410 (change packets & locale & keymap & timezone)
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
@@ -66,15 +71,140 @@ sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 sed -i "/\[multilib\]/,/Include/"'s/^#//' /etc/pacman.conf
 pacman -Sy --noconfirm
 
-echo -ne "
--------------------------------------------------------------------------
-                    Installing Base System  
--------------------------------------------------------------------------
-"
-cat /root/ArchTitus/pkg-files/pacman-pkgs.txt | while read line 
-do
-    echo "INSTALLING: ${line}"
-   sudo pacman -S --noconfirm --needed ${line}
+echo -e "\nInstalling Base System\n"
+
+PKGS=(
+'mesa' # Essential Xorg First
+'xorg'
+'xorg-server'
+'xorg-apps'
+'xorg-drivers'
+'xorg-xkill'
+'xorg-xinit'
+'xterm'
+'plasma-desktop' # KDE Load second
+'alsa-plugins' # audio plugins
+'alsa-utils' # audio utils
+'ark' # compression
+'audiocd-kio' 
+'autoconf' # build
+'automake' # build
+'base'
+'bash-completion'
+'bind'
+'binutils'
+'bison'
+'bluedevil'
+'bluez'
+'bluez-libs'
+'breeze'
+'breeze-gtk'
+'bridge-utils'
+'btrfs-progs'
+'celluloid' # video players
+'cmatrix'
+'cronie'
+'cups'
+'dialog'
+'discover'
+'dolphin'
+'dosfstools'
+'efibootmgr' # EFI boot
+'egl-wayland'
+'exa'
+'exfat-utils'
+'flex'
+'fuse2'
+'fuse3'
+'fuseiso'
+'gamemode'
+'gcc'
+'gimp' # Photo editing
+'git'
+'gparted' # partition management
+'gptfdisk'
+'grub'
+'grub-customizer'
+'gst-libav'
+'gst-plugins-good'
+'gst-plugins-ugly'
+'haveged'
+'htop'
+'iptables-nft'
+'jdk-openjdk' # Java 17
+'kate'
+'kvantum-qt5'
+'kde-gtk-config'
+'konsole'
+'layer-shell-qt'
+'libnewt'
+'libtool'
+'linux'
+'linux-firmware'
+'linux-headers'
+'lsof'
+'lzop'
+'m4'
+'make'
+'milou'
+'nano'
+'neofetch'
+'networkmanager'
+'ntfs-3g'
+'ntp'
+'okular'
+'openbsd-netcat'
+'openssh'
+'os-prober'
+'oxygen'
+'p7zip'
+'pacman-contrib'
+'patch'
+'picom'
+'pkgconf'
+'powerline-fonts'
+'print-manager'
+'pulseaudio'
+'pulseaudio-alsa'
+'pulseaudio-bluetooth'
+'python-pip'
+'qemu'
+'rsync'
+'sddm'
+'sddm-kcm'
+'snapper'
+'spectacle'
+'steam'
+'sudo'
+'swtpm'
+'synergy'
+'systemsettings'
+'terminus-font'
+'traceroute'
+'ufw'
+'unrar'
+'unzip'
+'usbutils'
+'vim'
+'virt-manager'
+'virt-viewer'
+'wget'
+'which'
+'wine-gecko'
+'wine-mono'
+'winetricks'
+'xdg-desktop-portal-kde'
+'xdg-user-dirs'
+'zeroconf-ioslave'
+'zip'
+'zsh'
+'zsh-syntax-highlighting'
+'zsh-autosuggestions'
+)
+
+for PKG in "${PKGS[@]}"; do
+    echo "INSTALLING: ${PKG}"
+    sudo pacman -S "$PKG" --noconfirm --needed
 done
 echo -ne "
 -------------------------------------------------------------------------
