@@ -70,15 +70,25 @@ systemctl disable dhcpcd.service
 systemctl stop dhcpcd.service
 systemctl enable NetworkManager.service
 systemctl enable bluetooth
+<<<<<<< HEAD
 echo -ne "
 -------------------------------------------------------------------------
                     Cleaning 
 -------------------------------------------------------------------------
 "
+
+echo -e "\nConfiguring sway WM"
+cd /tmp
+git clone https://github.com/finxol/sway-rice
+cp -r sway-rice/.config/ ~/.config
+
+
 # Remove no password sudo rights
 sed -i 's/^%wheel ALL=(ALL) NOPASSWD: ALL/# %wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
 # Add sudo rights
 sed -i 's/^# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+# Delete sway-rice repo files
+rm -r /tmp/sway-rice
 
 rm -r /root/ArchTitus
 rm -r /home/$USERNAME/ArchTitus
