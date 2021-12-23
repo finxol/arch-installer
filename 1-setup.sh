@@ -45,7 +45,7 @@ fi
 
 echo -ne "
 -------------------------------------------------------------------------
-                    Setup Language to US and set locale  
+                    Setup Language to GB and set locale  
 -------------------------------------------------------------------------
 "
 sed -i 's/^#en_GB.UTF-8 UTF-8/en_GB.UTF-8 UTF-8/' /etc/locale.gen
@@ -55,11 +55,7 @@ timedatectl --no-ask-password set-ntp 1
 localectl --no-ask-password set-locale LANG="en_GB.UTF-8" LC_TIME="en_GB.UTF-8"
 
 # Set keymaps
-<<<<<<< HEAD
 localectl --no-ask-password set-keymap ${KEYMAP}
-=======
-localectl --no-ask-password set-keymap fr
->>>>>>> 284f410 (change packets & locale & keymap & timezone)
 
 # Add sudo no password rights
 sed -i 's/^# %wheel ALL=(ALL) NOPASSWD: ALL/%wheel ALL=(ALL) NOPASSWD: ALL/' /etc/sudoers
