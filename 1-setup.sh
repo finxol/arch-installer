@@ -79,6 +79,7 @@ PKGS=(
 'xorg-xinit'
 'xterm'
 'plasma-desktop' # KDE Load second
+'alacritty' # terminal
 'alsa-plugins' # audio plugins
 'alsa-utils' # audio utils
 'ark' # compression
@@ -103,7 +104,7 @@ PKGS=(
 'cups'
 'dialog'
 'discover'
-'dolphin'
+'dolphin' # files explorer
 'dosfstools'
 'efibootmgr' # EFI boot
 'egl-wayland'
@@ -124,6 +125,7 @@ PKGS=(
 'gst-libav'
 'gst-plugins-good'
 'gst-plugins-ugly'
+'gwenview' # image viewer
 'haveged'
 'htop'
 'iptables-nft'
@@ -132,9 +134,11 @@ PKGS=(
 'kvantum-qt5'
 'kde-gtk-config'
 'konsole'
+'kscreen'
 'layer-shell-qt'
 'libnewt'
 'libtool'
+'light'
 'linux'
 'linux-firmware'
 'linux-headers'
@@ -165,13 +169,14 @@ PKGS=(
 'pulseaudio-bluetooth'
 'python-pip'
 'qemu'
+'rofi' # application menu/launcher
 'rsync'
 'sddm'
 'sddm-kcm'
 'snapper'
-'spectacle'
-'steam'
+'spectacle' # screenshot and record
 'sudo'
+'sway' # WM
 'swtpm'
 'synergy'
 'systemsettings'
@@ -184,6 +189,7 @@ PKGS=(
 'vim'
 'virt-manager'
 'virt-viewer'
+'waybar' # sway bar
 'wget'
 'which'
 'wine-gecko'
