@@ -1,34 +1,45 @@
 #!/usr/bin/env bash
-#-------------------------------------------------------------------------
-#   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
-#  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
-#  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
-#  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
-#  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
-#-------------------------------------------------------------------------
+echo -ne "
+-------------------------------------------------------------------------
+   █████╗ ██████╗  ██████╗██╗  ██╗████████╗██╗████████╗██╗   ██╗███████╗
+  ██╔══██╗██╔══██╗██╔════╝██║  ██║╚══██╔══╝██║╚══██╔══╝██║   ██║██╔════╝
+  ███████║██████╔╝██║     ███████║   ██║   ██║   ██║   ██║   ██║███████╗
+  ██╔══██║██╔══██╗██║     ██╔══██║   ██║   ██║   ██║   ██║   ██║╚════██║
+  ██║  ██║██║  ██║╚██████╗██║  ██║   ██║   ██║   ██║   ╚██████╔╝███████║
+  ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝   ╚═╝    ╚═════╝ ╚══════╝
+-------------------------------------------------------------------------
+                    Automated Arch Linux Installer
+                        SCRIPTHOME: ArchTitus
+-------------------------------------------------------------------------
 
-echo -e "\nINSTALLING AUR SOFTWARE\n"
+Installing AUR Softwares
+"
 # You can solve users running this script as root with this and then doing the same for the next for statement. However I will leave this up to you.
+source $HOME/ArchTitus/setup.conf
 
-echo "CLONING: YAY"
 cd ~
 git clone "https://aur.archlinux.org/yay.git"
-cd ${HOME}/yay
+cd ~/yay
 makepkg -si --noconfirm
 cd ~
-touch "$HOME/.cache/zshhistory"
+touch "~/.cache/zshhistory"
 git clone "https://github.com/ChrisTitusTech/zsh"
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git $HOME/powerlevel10k
-ln -s "$HOME/zsh/.zshrc" $HOME/.zshrc
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+ln -s "~/zsh/.zshrc" ~/.zshrc
 
 PKGS=(
 'autojump'
 'awesome-terminal-fonts'
+<<<<<<< HEAD
 'dxvk-bin' # DXVK DirectX to Vulcan
 'librewolf-bin' # Librewolf Browser
 'lightly-git'
 'lightlyshaders-git'
+=======
+'librewolf-bin' # Brave Browser
+'dxvk-bin' # DXVK DirectX to Vulcan
+'lightly-git'
+>>>>>>> ChrisTitusTech-main
 'nerd-fonts-fira-code'
 'nordic-darker-standard-buttons-theme'
 'nordic-darker-theme'
@@ -53,11 +64,15 @@ for PKG in "${PKGS[@]}"; do
 done
 
 export PATH=$PATH:~/.local/bin
-cp -r $HOME/ArchTitus/dotfiles/* $HOME/.config/
+cp -r ~/ArchTitus/dotfiles/* ~/.config/
 pip install konsave
-konsave -i $HOME/ArchTitus/kde.knsv
+konsave -i ~/ArchTitus/kde.knsv
 sleep 1
 konsave -a kde
 
-echo -e "\nDone!\n"
+echo -ne "
+-------------------------------------------------------------------------
+                    SYSTEM READY FOR 3-post-setup.sh
+-------------------------------------------------------------------------
+"
 exit
